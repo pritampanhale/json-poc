@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UMLLabProfile="http:///schemas/UMLLabProfile/NS/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/UMLLabProfile/NS/0 pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile">
+  <uml:Model xmi:id="_NAuNwI9UEeyvY8PGMtCiTQ" name="model">
+    <eAnnotations xmi:id="_OgZQwI9UEeyvY8PGMtCiTQ" source="http://ns.yatta.de/umllab">
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_OgZ30I9UEeyvY8PGMtCiTQ" source="codegen">
+        <details xmi:id="_OgZ30Y9UEeyvY8PGMtCiTQ" key="codegenDirectory" value="/json-poc/src/main/java"/>
+        <details xmi:id="_QE8zwI9UEeyvY8PGMtCiTQ" key="AssociatedSourceCode" value="/json-poc/src/main/java/constants/Entities.java;871756368/1;/json-poc/src/main/java/exceptions/GenericValidationError.java;354328504/1;/json-poc/src/main/java/main/Transformer.java;2265917218/1;/json-poc/src/main/java/service/BaseValidator.java;221714699/1;/json-poc/src/main/java/service/FileService.java;25254200/1;/json-poc/src/main/java/service/SampleBankValidator.java;2423014548/1;/json-poc/src/main/java/service/ValidatorFactory.java;3461481299/1;/json-poc/src/main/java/util/Converter.java;2058799928/1;"/>
+      </contents>
+    </eAnnotations>
+    <elementImport xmi:id="_Om13AI9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+    </elementImport>
+    <elementImport xmi:id="_Om2eEI9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+    </elementImport>
+    <elementImport xmi:id="_Om3FII9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+    </elementImport>
+    <elementImport xmi:id="_Om3FIY9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+    </elementImport>
+    <elementImport xmi:id="_Om3FIo9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+    </elementImport>
+    <elementImport xmi:id="_Om3FI49UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </elementImport>
+    <elementImport xmi:id="_Om3FJI9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+    </elementImport>
+    <elementImport xmi:id="_Om3FJY9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+    </elementImport>
+    <elementImport xmi:id="_Om4TQI9UEeyvY8PGMtCiTQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </elementImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Om8ksI9UEeyvY8PGMtCiTQ" name="constants">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_OnZQoI9UEeyvY8PGMtCiTQ" name="Entities">
+        <ownedLiteral xmi:id="_OneJII9UEeyvY8PGMtCiTQ" name="SAMPLE_BANK"/>
+        <ownedLiteral xmi:id="_OneJIY9UEeyvY8PGMtCiTQ" name="HDFC"/>
+        <ownedLiteral xmi:id="_OnewMI9UEeyvY8PGMtCiTQ" name="ICICI"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_OnBdMI9UEeyvY8PGMtCiTQ" name="exceptions">
+      <packagedElement xmi:type="uml:Class" xmi:id="_OnewMY9UEeyvY8PGMtCiTQ" name="GenericValidationError">
+        <generalization xmi:id="_Op7nQI9UEeyvY8PGMtCiTQ" general="_Op6ZIY9UEeyvY8PGMtCiTQ"/>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqCU8I9UEeyvY8PGMtCiTQ" name="GenericValidationError" specification="_OnglYI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqC8AI9UEeyvY8PGMtCiTQ" name="err">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OqC8AY9UEeyvY8PGMtCiTQ" type="_OnewMY9UEeyvY8PGMtCiTQ" direction="return"/>
+          <language>java</language>
+          <body>super(err);&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_OnglYI9UEeyvY8PGMtCiTQ" name="GenericValidationError" method="_OqCU8I9UEeyvY8PGMtCiTQ">
+          <eAnnotations xmi:id="_OnhzgI9UEeyvY8PGMtCiTQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_OnhzgY9UEeyvY8PGMtCiTQ" key="create"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_OnglYY9UEeyvY8PGMtCiTQ" name="err">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OniakI9UEeyvY8PGMtCiTQ" type="_OnewMY9UEeyvY8PGMtCiTQ" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_OnCrUI9UEeyvY8PGMtCiTQ" name="service">
+      <packagedElement xmi:type="uml:Class" xmi:id="_Onn6II9UEeyvY8PGMtCiTQ" name="BaseValidator" isAbstract="true">
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqHNdI9UEeyvY8PGMtCiTQ" name="validate" specification="_OnohMI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqHNdY9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>boolean validateAsPerEntity = validateAsPerEntity();&#xD;
+		return validateAsPerEntity &amp;&amp; true;&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqHNdo9UEeyvY8PGMtCiTQ" name="validateAsPerEntity" specification="_OnpvUI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqHNd49UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return true;&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_OnohMI9UEeyvY8PGMtCiTQ" name="validate" isLeaf="true" method="_OqHNdI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OnpIQI9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_OnpvUI9UEeyvY8PGMtCiTQ" name="validateAsPerEntity" visibility="protected" method="_OqHNdo9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OnpvUY9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_OnqWYI9UEeyvY8PGMtCiTQ" name="FileService">
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqH0gI9UEeyvY8PGMtCiTQ" name="readXmlFilFromPath" specification="_OnrkgI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqH0gY9UEeyvY8PGMtCiTQ" name="filePath">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OqH0go9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return &quot;&quot;;&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_OnrkgI9UEeyvY8PGMtCiTQ" name="readXmlFilFromPath" method="_OqH0gI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OnrkgY9UEeyvY8PGMtCiTQ" name="filePath">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OnsLkI9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_OnsLkY9UEeyvY8PGMtCiTQ" name="SampleBankValidator">
+        <generalization xmi:id="_Op2HsI9UEeyvY8PGMtCiTQ" general="_Onn6II9UEeyvY8PGMtCiTQ"/>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqH0g49UEeyvY8PGMtCiTQ" name="validateAsPerEntity" specification="_OnsyoI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqH0hI9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>throw new GenericValidationError(&quot;Generic validation error&quot;);&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_OnsyoI9UEeyvY8PGMtCiTQ" name="validateAsPerEntity" visibility="protected" method="_OqH0g49UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OntZsI9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_OnvO4I9UEeyvY8PGMtCiTQ" name="ValidatorFactory">
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqIbkI9UEeyvY8PGMtCiTQ" name="getValidator" specification="_OnxEEI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqIbkY9UEeyvY8PGMtCiTQ" name="entity">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OqIbko9UEeyvY8PGMtCiTQ" type="_Onn6II9UEeyvY8PGMtCiTQ" direction="return"/>
+          <language>java</language>
+          <body>Entities ent = Entities.valueOf(entity);&#xD;
+		&#xD;
+		switch (ent) {&#xD;
+		case SAMPLE_BANK:&#xD;
+			return new SampleBankValidator();&#xD;
+&#xD;
+		default:&#xD;
+			break;&#xD;
+		}&#xD;
+		return null;&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_Onv18I9UEeyvY8PGMtCiTQ" name="ValidatorFactory" visibility="private">
+          <eAnnotations xmi:id="_Onv18Y9UEeyvY8PGMtCiTQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_Onv18o9UEeyvY8PGMtCiTQ" key="create"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_OnwdAY9UEeyvY8PGMtCiTQ" type="_OnvO4I9UEeyvY8PGMtCiTQ" direction="return"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="_OnxEEI9UEeyvY8PGMtCiTQ" name="getValidator" isStatic="true" method="_OqIbkI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OnxEEY9UEeyvY8PGMtCiTQ" name="entity">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_Op2uwI9UEeyvY8PGMtCiTQ" type="_Onn6II9UEeyvY8PGMtCiTQ" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_OnDSYI9UEeyvY8PGMtCiTQ" name="util">
+      <packagedElement xmi:type="uml:Class" xmi:id="_OnySMI9UEeyvY8PGMtCiTQ" name="Converter">
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqIbk49UEeyvY8PGMtCiTQ" name="convert" specification="_OnzgUI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqIblI9UEeyvY8PGMtCiTQ" name="xmlFileData">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OqIblY9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>// convert string into object, remove the unwanted fields&#xD;
+		// return JSON string&#xD;
+		return &quot;&quot;;&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_OnzgUI9UEeyvY8PGMtCiTQ" name="convert" method="_OqIbk49UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_On0HYI9UEeyvY8PGMtCiTQ" name="xmlFileData">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_On0HYY9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_OnEggI9UEeyvY8PGMtCiTQ" name="main">
+      <packagedElement xmi:type="uml:Class" xmi:id="_OnjosI9UEeyvY8PGMtCiTQ" name="Transformer">
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqGmYI9UEeyvY8PGMtCiTQ" name="main" specification="_Onk20I9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqGmYY9UEeyvY8PGMtCiTQ" name="args">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OqGmYo9UEeyvY8PGMtCiTQ" value="*"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>String xmlfilePath = &quot;&quot;, entity = &quot;&quot;;&#xD;
+		transformXml(xmlfilePath, entity);&#xD;
+&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OqHNcI9UEeyvY8PGMtCiTQ" name="transformXml" specification="_OnmsAI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OqHNcY9UEeyvY8PGMtCiTQ" name="xmlfilePath">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OqHNco9UEeyvY8PGMtCiTQ" name="entity">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OqHNc49UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>FileService fileService = new FileService();&#xD;
+		Converter converter = new Converter();&#xD;
+&#xD;
+		String xmlFileContent = fileService.readXmlFilFromPath(xmlfilePath);&#xD;
+		String jsonString = converter.convert(xmlFileContent);&#xD;
+		boolean validate = ValidatorFactory.getValidator(entity).validate();&#xD;
+		if (validate) {&#xD;
+			return jsonString;&#xD;
+		}&#xD;
+		return null;&#xD;
+&#xD;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_Onk20I9UEeyvY8PGMtCiTQ" name="main" isStatic="true" method="_OqGmYI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_Onld4I9UEeyvY8PGMtCiTQ" name="args">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Onld4Y9UEeyvY8PGMtCiTQ" value="*"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_OnmsAI9UEeyvY8PGMtCiTQ" name="transformXml" visibility="private" isStatic="true" method="_OqHNcI9UEeyvY8PGMtCiTQ">
+          <ownedParameter xmi:id="_OnnTEI9UEeyvY8PGMtCiTQ" name="xmlfilePath">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OnnTEY9UEeyvY8PGMtCiTQ" name="entity">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_OnnTEo9UEeyvY8PGMtCiTQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_OnNqcI9UEeyvY8PGMtCiTQ" name="com">
+      <packagedElement xmi:type="uml:Package" xmi:id="_OnORgI9UEeyvY8PGMtCiTQ" name="fasterxml">
+        <packagedElement xmi:type="uml:Package" xmi:id="_OnORgY9UEeyvY8PGMtCiTQ" name="jackson">
+          <packagedElement xmi:type="uml:Package" xmi:id="_OnORgo9UEeyvY8PGMtCiTQ" name="databind">
+            <packagedElement xmi:type="uml:Package" xmi:id="_OnORg49UEeyvY8PGMtCiTQ" name="util">
+              <packagedElement xmi:type="uml:Class" xmi:id="_Op3V0I9UEeyvY8PGMtCiTQ" name="JSONPObject"/>
+            </packagedElement>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Op5yEI9UEeyvY8PGMtCiTQ" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_Op6ZII9UEeyvY8PGMtCiTQ" name="lang">
+        <packagedElement xmi:type="uml:Class" xmi:id="_Op6ZIY9UEeyvY8PGMtCiTQ" name="RuntimeException"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_OgcUEI9UEeyvY8PGMtCiTQ">
+      <eAnnotations xmi:id="_OgglgI9UEeyvY8PGMtCiTQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile"/>
+    </profileApplication>
+  </uml:Model>
+  <UMLLabProfile:TargetLanguage xmi:id="_OgmFEI9UEeyvY8PGMtCiTQ" base_Package="_NAuNwI9UEeyvY8PGMtCiTQ">
+    <languageName>java</languageName>
+  </UMLLabProfile:TargetLanguage>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_OndiEI9UEeyvY8PGMtCiTQ" base_Element="_OnZQoI9UEeyvY8PGMtCiTQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_OnpIQY9UEeyvY8PGMtCiTQ" base_Element="_OnohMI9UEeyvY8PGMtCiTQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_OntZsY9UEeyvY8PGMtCiTQ" base_Element="_OnsyoI9UEeyvY8PGMtCiTQ"/>
+  <UMLLabProfile:Annotations xmi:id="_Onun0I9UEeyvY8PGMtCiTQ" base_Element="_OnsyoI9UEeyvY8PGMtCiTQ">
+    <annotations xmi:id="_Onun0Y9UEeyvY8PGMtCiTQ" name="Override"/>
+  </UMLLabProfile:Annotations>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_OnwdAI9UEeyvY8PGMtCiTQ" base_Element="_Onv18I9UEeyvY8PGMtCiTQ"/>
+  <UMLLabProfile:Reference xmi:id="_Op384I9UEeyvY8PGMtCiTQ" base_Element="_Op3V0I9UEeyvY8PGMtCiTQ"/>
+  <UMLLabProfile:Reference xmi:id="_Op7AMI9UEeyvY8PGMtCiTQ" base_Element="_Op6ZIY9UEeyvY8PGMtCiTQ"/>
+  <UMLLabProfile:Patch xmi:id="_QE6XgI9UEeyvY8PGMtCiTQ" base_Element="_OnZQoI9UEeyvY8PGMtCiTQ" patchText="@@ -39,10 +39,8 @@&#xA; ties&#xA;-()&#xA;  %7B%0D%0A&#xA;" conflicting="false"/>
+</xmi:XMI>
