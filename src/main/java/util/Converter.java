@@ -1,29 +1,167 @@
 package util;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
+import java.io.IOException;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import lombok.extern.slf4j.Slf4j;
+import model.AdditionalAmount;
+import model.Address;
+import model.Amounts;
+import model.BillingAmount;
+import model.Consumer;
+import model.CreditorAccount;
+import model.DebatorAccount;
+import model.Merchant;
+import model.Transaction;
+import model.TransactionAmount;
+import model.TransactionDetails;
+
+@Slf4j
 public class Converter {
-	public static int PRETTY_PRINT_INDENT_FACTOR = 2;
-    public static String TEST_XML_STRING =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <cain:RequestPayload xmlns:cain=\"http://ap.com/xsd/message/iso20022/cain.003.01\" xmlns:head=\"urn:iso:std:iso:20022:tech:xsd:head.001.001.01\" xmlns:iso=\"urn:iso:std:iso:20022:tech:xsd:cain.003.001.01\"> <urn:AppHdr xmlns:cain1=\"http://ap.com/xsd/message/iso20022/cain.004.02\" xmlns:cmn=\"http://ap.pos.core.com/xsd/common_3\" xmlns:fin=\"http://ap.pos.core.com/xsd/financialinstitution_3\" xmlns:iso=\"urn:iso:std:iso:20022:tech:xsd:cain.001.001.01\" xmlns:mdd=\"http://ap.pos.core.com/xsd/managedigitisationdata_3\" xmlns:mec=\"http://ap.security.com/xsd/manageencryptiondata_1\" xmlns:mfa=\"http://ap.pos.core.com/xsd/retrievecficountrycode_1\" xmlns:msg=\"http://ap.pos.core.com/xsd/messageheader_3\" xmlns:ns10=\"http://ap.security.com/xsd/messageheaderdata_1\" xmlns:ns12=\"http://ap.com/xsd/posmanagepaymentdata_1\" xmlns:ns13=\"http://ap.pos.com/xsd/manageadvicedata_1\" xmlns:ns15=\"http://ap.pos.com/xsd/common\" xmlns:ns16=\"urn:iso:std:iso:20022:tech:xsd:cain.002.001.01\" xmlns:ns18=\"http://ap.security.com/xsd/infracheckhealthstatusdata_1\" xmlns:ns19=\"http://ap.com/xsd/posmanagerefunddata_1\" xmlns:ns2=\"http://ap.mdm.core.com/xsd/managereferencedata_1\" xmlns:ns21=\"http://ap.com/xsd/message/iso20022/cain.001.01\" xmlns:ns22=\"http://ap.com/xsd/message/iso20022/cain.004.01\" xmlns:ns23=\"urn:iso:std:iso:20022:tech:xsd:cain.013.001.01\" xmlns:ns25=\"http://ap.com/xsd/message/iso20022/cain.002.01\" xmlns:ns27=\"http://ap.pos.core.com/xsd/managefiadvice_1\" xmlns:ns29=\"http://ap.pos.core.com/xsd/manageexceptiondata_3\" xmlns:ns30=\"http://ap.security.com/xsd/managebahcryptodata_1\" xmlns:ns31=\"http://ap.pos.core.com/xsd/managepaymentdata_3\" xmlns:ns32=\"http://ap.pos.core.com/xsd/managerefunddata_3\" xmlns:ns33=\"http://ap.mdm.core.com/xsd/common_2\" xmlns:ns34=\"http://ap.pos.com/xsd/posmanageexceptiondata_1\" xmlns:ns35=\"http://ap.pos.com/xsd/messageheader\" xmlns:ns36=\"http://ap.mdm.core.com/xsd/messageheader\" xmlns:ns37=\"http://ap.mdm.core.com/xsd/financialinstitution_2\" xmlns:ns38=\"http://ap.mdm.core.com/xsd/distributor_2\" xmlns:ns39=\"http://ap.mdm.core.com/xsd/acknowledgement_2\" xmlns:ns40=\"http://ap.pos.core.com/xsd/soapfault_3\" xmlns:ns6=\"urn:iso:std:iso:20022:tech:xsd:cain.004.001.01\" xmlns:ns7=\"http://ap.mdm.core.com/xsd/messageheader_2\" xmlns:ns8=\"http://ap.mdm.core.com/xsd/manageconsumerdata_2\" xmlns:urn=\"urn:iso:std:iso:20022:tech:xsd:head.001.001.01\" xmlns:urn1=\"urn:iso:std:iso:20022:tech:xsd:cain.003.001.01\"> <urn:Fr> <urn:FIId> <urn:FinInstnId> <urn:ClrSysMmbId> <urn:MmbId>ZAPP</urn:MmbId> </urn:ClrSysMmbId> </urn:FinInstnId> </urn:FIId> </urn:Fr> <urn:To> <urn:FIId> <urn:FinInstnId> <urn:ClrSysMmbId> <urn:MmbId>100005</urn:MmbId> </urn:ClrSysMmbId> </urn:FinInstnId> </urn:FIId> </urn:To> <urn:BizMsgIdr>AP30112021163824835732620008323</urn:BizMsgIdr> <urn:MsgDefIdr>cain.003.001.01</urn:MsgDefIdr> <urn:CreDt>2021-11-30T04:59:17.274Z</urn:CreDt> <urn:Sgntr> <ds:Signature xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"> <ds:SignedInfo> <ds:CanonicalizationMethod Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/> <ds:SignatureMethod Algorithm=\"http://www.w3.org/2001/04/xmldsig-more#rsa-sha256\"/> <ds:Reference URI=\"\"> <ds:Transforms> <ds:Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/> <ds:Transform Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/> </ds:Transforms> <ds:DigestMethod Algorithm=\"http://www.w3.org/2001/04/xmlenc#sha256\"/> <ds:DigestValue>rY/KKFzDxwV2LpfeSjrlXwishlISH0G4ZAO5FUHYjIQ=</ds:DigestValue> </ds:Reference> <ds:Reference URI=\"#deaf58f5-48fc-4826-8e31-43f96b7b33de\"> <ds:Transforms> <ds:Transform Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/> </ds:Transforms> <ds:DigestMethod Algorithm=\"http://www.w3.org/2001/04/xmlenc#sha256\"/> <ds:DigestValue>EBipm8PNt5UVBcvo7ZuV+Y0NqWuonBwvDtBJam2MkaE=</ds:DigestValue> </ds:Reference> <ds:Reference> <ds:Transforms> <ds:Transform Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/> </ds:Transforms> <ds:DigestMethod Algorithm=\"http://www.w3.org/2001/04/xmlenc#sha256\"/> <ds:DigestValue>vL6+XfRndNyhJXt2NZ0dQlG7uzW1dMe2eGTQskAnSms=</ds:DigestValue> </ds:Reference> </ds:SignedInfo> <ds:SignatureValue> GdiCE4YF0kEJOrykFFWC2PXau0tDzXillbNqG+giDDh4Lw0d9vkojwmwRfK7/e1N1StLZy3ICP67&#13; DGAO5w6iOfQlBXC36DC6tgAddWYCJWUXFyoMxRpbVPOnk5mD7k7urOxoSliCqtk87KUEWSI5YtxI&#13; F+F02YbKC6PlBkGW6sy0fvHGVxU4agVn+dwT0JnVivP0qZfxLg4OPh78xTJC994SNonepN4BZolC&#13; yCDeBsCfm3+Woy2LOcUMHTeDNA6HznxSVOLHUhFK11VGPczbDnMT1N5phmo9BcVYyl/luBXxyNAy&#13; UNqCcJD9JOX6xIOaVEYi+1fzDtdEGZeQ29BV1A== </ds:SignatureValue> <ds:KeyInfo Id=\"deaf58f5-48fc-4826-8e31-43f96b7b33de\"> <ds:X509Data> <ds:X509SKI> WGY824qjMcvJ8cZNOid3OtOloYU= </ds:X509SKI> </ds:X509Data> </ds:KeyInfo> </ds:Signature> </urn:Sgntr> </urn:AppHdr> <iso:Document> <urn1:AcqrrFinInitn xmlns:cain1=\"http://ap.com/xsd/message/iso20022/cain.004.02\" xmlns:cmn=\"http://ap.pos.core.com/xsd/common_3\" xmlns:fin=\"http://ap.pos.core.com/xsd/financialinstitution_3\" xmlns:iso=\"urn:iso:std:iso:20022:tech:xsd:cain.001.001.01\" xmlns:mdd=\"http://ap.pos.core.com/xsd/managedigitisationdata_3\" xmlns:mec=\"http://ap.security.com/xsd/manageencryptiondata_1\" xmlns:mfa=\"http://ap.pos.core.com/xsd/retrievecficountrycode_1\" xmlns:msg=\"http://ap.pos.core.com/xsd/messageheader_3\" xmlns:ns10=\"http://ap.security.com/xsd/messageheaderdata_1\" xmlns:ns12=\"http://ap.com/xsd/posmanagepaymentdata_1\" xmlns:ns13=\"http://ap.pos.com/xsd/manageadvicedata_1\" xmlns:ns15=\"http://ap.pos.com/xsd/common\" xmlns:ns16=\"urn:iso:std:iso:20022:tech:xsd:cain.002.001.01\" xmlns:ns18=\"http://ap.security.com/xsd/infracheckhealthstatusdata_1\" xmlns:ns19=\"http://ap.com/xsd/posmanagerefunddata_1\" xmlns:ns2=\"http://ap.mdm.core.com/xsd/managereferencedata_1\" xmlns:ns21=\"http://ap.com/xsd/message/iso20022/cain.001.01\" xmlns:ns22=\"http://ap.com/xsd/message/iso20022/cain.004.01\" xmlns:ns23=\"urn:iso:std:iso:20022:tech:xsd:cain.013.001.01\" xmlns:ns25=\"http://ap.com/xsd/message/iso20022/cain.002.01\" xmlns:ns27=\"http://ap.pos.core.com/xsd/managefiadvice_1\" xmlns:ns29=\"http://ap.pos.core.com/xsd/manageexceptiondata_3\" xmlns:ns30=\"http://ap.security.com/xsd/managebahcryptodata_1\" xmlns:ns31=\"http://ap.pos.core.com/xsd/managepaymentdata_3\" xmlns:ns32=\"http://ap.pos.core.com/xsd/managerefunddata_3\" xmlns:ns33=\"http://ap.mdm.core.com/xsd/common_2\" xmlns:ns34=\"http://ap.pos.com/xsd/posmanageexceptiondata_1\" xmlns:ns35=\"http://ap.pos.com/xsd/messageheader\" xmlns:ns36=\"http://ap.mdm.core.com/xsd/messageheader\" xmlns:ns37=\"http://ap.mdm.core.com/xsd/financialinstitution_2\" xmlns:ns38=\"http://ap.mdm.core.com/xsd/distributor_2\" xmlns:ns39=\"http://ap.mdm.core.com/xsd/acknowledgement_2\" xmlns:ns40=\"http://ap.pos.core.com/xsd/soapfault_3\" xmlns:ns6=\"urn:iso:std:iso:20022:tech:xsd:cain.004.001.01\" xmlns:ns7=\"http://ap.mdm.core.com/xsd/messageheader_2\" xmlns:ns8=\"http://ap.mdm.core.com/xsd/manageconsumerdata_2\" xmlns:urn=\"urn:iso:std:iso:20022:tech:xsd:head.001.001.01\" xmlns:urn1=\"urn:iso:std:iso:20022:tech:xsd:cain.003.001.01\"> <urn1:Hdr> <urn1:MsgFctn>FNCQ</urn1:MsgFctn> <urn1:PrtcolVrsn>1</urn1:PrtcolVrsn> <urn1:XchgId>000</urn1:XchgId> <urn1:CreDtTm>2021-11-30T04:59:17.274Z</urn1:CreDtTm> <urn1:InitgPty> <urn1:Id>ZAPP</urn1:Id> </urn1:InitgPty> <urn1:RcptPty> <urn1:Id>100005</urn1:Id> </urn1:RcptPty> <urn1:Tracblt> <urn1:RlayId> <urn1:Id>999689</urn1:Id> <urn1:Tp>ITAG</urn1:Tp> </urn1:RlayId> <urn1:TracDtTmIn>2021-11-30T04:59:17Z</urn1:TracDtTmIn> <urn1:TracDtTmOut>2021-11-30T04:59:17Z</urn1:TracDtTmOut> </urn1:Tracblt> </urn1:Hdr> <urn1:FinInitn> <urn1:Envt> <urn1:Acqrr> <urn1:Id>999689</urn1:Id> </urn1:Acqrr> <urn1:Accptr> <urn1:Id> <urn1:Id>ABC123TESTMTF19</urn1:Id> <urn1:Tp>MERC</urn1:Tp> </urn1:Id> <urn1:CmonNm>MTFT3TST</urn1:CmonNm> <urn1:Lctn> <urn1:PstlAdr> <urn1:PstCd>207302</urn1:PstCd> <urn1:TwnNm>TEST CITY</urn1:TwnNm> <urn1:Ctry>SG</urn1:Ctry> </urn1:PstlAdr> </urn1:Lctn> </urn1:Accptr> <urn1:Card> <urn1:PlainCardData> <urn1:PAN>2714560000000394</urn1:PAN> <urn1:XpryDt>2038-12</urn1:XpryDt> </urn1:PlainCardData> </urn1:Card> <urn1:PmtTkn> <urn1:Tkn>5349722000000875</urn1:Tkn> <urn1:TknXpryDt>2024-12</urn1:TknXpryDt> <urn1:TknChrtc>F</urn1:TknChrtc> <urn1:TknRqstr> <urn1:PrvdrId>MDES</urn1:PrvdrId> <urn1:RqstrId>50186424135</urn1:RqstrId> </urn1:TknRqstr> <urn1:TknAssrncLvl>10</urn1:TknAssrncLvl> </urn1:PmtTkn> <urn1:Crdhldr> <urn1:Id> <urn1:CstmrNb>3000000786041388</urn1:CstmrNb> </urn1:Id> <urn1:TxVrfctnRslt> <urn1:Mtd>CSCV</urn1:Mtd> <urn1:Rslt>SUCC</urn1:Rslt> </urn1:TxVrfctnRslt> </urn1:Crdhldr> </urn1:Envt> <urn1:Cntxt> <urn1:TxCntxt> <urn1:TxChanl>SECM</urn1:TxChanl> <urn1:CardDataNtryMd>CDFL</urn1:CardDataNtryMd> <urn1:SpclConds> <urn1:Prgm>UCAFID</urn1:Prgm> <urn1:Val>jJJLtQa+Iws8AREAEbjsA1MAAAA=</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>PAOTSI</urn1:Prgm> <urn1:Val>0</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>RECNID</urn1:Prgm> <urn1:Val>RECON3011202101</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>PMTTYP</urn1:Prgm> <urn1:Val>NOT-ACH</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>RECNDT</urn1:Prgm> <urn1:Val>2021-11-30</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>CURIND</urn1:Prgm> <urn1:Val>SGD</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>AMTIND</urn1:Prgm> <urn1:Val>111.00</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>APTRID</urn1:Prgm> <urn1:Val>211130702007601583</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>TACCNM</urn1:Prgm> <urn1:Val>Holding account SGD</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>SCLIND</urn1:Prgm> <urn1:Val>212</urn1:Val> </urn1:SpclConds> <urn1:SpclConds> <urn1:Prgm>TRCTCD</urn1:Prgm> <urn1:Val>SG</urn1:Val> </urn1:SpclConds> </urn1:TxCntxt> </urn1:Cntxt> <urn1:Tx> <urn1:TxTp>CRDP</urn1:TxTp> <urn1:MrchntCtgyCd>5411</urn1:MrchntCtgyCd> <urn1:Rcncltn> <urn1:RcncltnDt>2021-11-29</urn1:RcncltnDt> <urn1:RcncltnId>ACSQUVVH8</urn1:RcncltnId> </urn1:Rcncltn> <urn1:AccptrTxDtTm>2021-11-29T22:59:17Z</urn1:AccptrTxDtTm> <urn1:AccptrTxId>420057200201</urn1:AccptrTxId> <urn1:InitrTxId>001020</urn1:InitrTxId> <urn1:TxLifeCyclId>ACSQUVVH81129 </urn1:TxLifeCyclId> <urn1:TxDtls> <urn1:TxAmts> <urn1:TtlAmt Ccy=\"SGD\">11.00</urn1:TtlAmt> <urn1:CrdhldrBllgTxAmt> <urn1:Amt>11.00</urn1:Amt> <urn1:XchgRate>1.000000</urn1:XchgRate> <urn1:QtnDt>2021-11-29T00:00:00Z</urn1:QtnDt> <urn1:Labl>SGD</urn1:Labl> </urn1:CrdhldrBllgTxAmt> <urn1:RcncltnTxAmt> <urn1:Amt>8.99</urn1:Amt> <urn1:XchgRate>0.7296396</urn1:XchgRate> <urn1:QtnDt>2021-11-29T00:00:00Z</urn1:QtnDt> <urn1:Labl>USD</urn1:Labl> </urn1:RcncltnTxAmt> </urn1:TxAmts> <urn1:UattnddLvlCtgy>6</urn1:UattnddLvlCtgy> <urn1:AcctFr> <urn1:SelctdAcctTp>DFLT</urn1:SelctdAcctTp> <urn1:AcctIdr> <urn1:Othr>3000000786041388</urn1:Othr> </urn1:AcctIdr> </urn1:AcctFr> <urn1:AcctTo> <urn1:AcctIdr> <urn1:Othr>3100000936203143</urn1:Othr> </urn1:AcctIdr> </urn1:AcctTo> </urn1:TxDtls> </urn1:Tx> </urn1:FinInitn> <urn1:SctyTrlr> <urn1:CnttTp>DATA</urn1:CnttTp> <urn1:AuthntcdData> <urn1:Rcpt> <urn1:KeyIdr> <urn1:KeyId>Unused</urn1:KeyId> <urn1:KeyVrsn>Unused</urn1:KeyVrsn> </urn1:KeyIdr> </urn1:Rcpt> <urn1:MACAlgo> <urn1:Algo>MCCS</urn1:Algo> </urn1:MACAlgo> <urn1:NcpsltdCntt> <urn1:CnttTp>DATA</urn1:CnttTp> </urn1:NcpsltdCntt> <urn1:MAC>VW51c2Vk</urn1:MAC> </urn1:AuthntcdData> </urn1:SctyTrlr> </urn1:AcqrrFinInitn> </iso:Document> </cain:RequestPayload> ";
-        public String convert(String xmlFileData) {
-		// convert string into object, remove the unwanted fields
-		// return JSON string
-		try {
-            JSONObject xmlJSONObj = XML.toJSONObject(TEST_XML_STRING);
-            String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
-            System.out.println(jsonPrettyPrintString);
-           
-        } catch (JSONException je) {
-            System.out.println(je.toString());
-        }
-		return "";
+	public static String convert(String xmlString) throws IOException {
+		log.info(" : convert Method : Start");
+		XmlMapper xmlMapper = new XmlMapper();
+		JsonNode jsonNode = xmlMapper.readTree(xmlString.getBytes());
+		JsonNode acqrrFinInitnNode = jsonNode.get(Contants.XML_ATTR_DOCUMENT).get(Contants.XML_ATTR_AcqrrFinInitn);
+		JsonNode finInitnNode = acqrrFinInitnNode.get(Contants.XML_ATTR_FinInitn);
+		ObjectMapper objectMapper = new ObjectMapper();
+		TransactionDetails txDetails = buildTransDetails(finInitnNode);
+		String jsonStr = objectMapper.writeValueAsString(txDetails);
+		log.info(" : convert Method : End");
+		return jsonStr;
 	}
-	
-	public static void main(String[] args) {
-		Converter con=new Converter();
-		con.convert(TEST_XML_STRING);
+
+	private static TransactionDetails buildTransDetails(JsonNode finInitnNode) {
+		log.debug(" : buildTransDetails Method : Start");
+		TransactionDetails txDetails = new TransactionDetails();
+		JsonNode txNode = finInitnNode.get(Contants.XML_ATTR_Tx);
+		txDetails.setTransaction(buildTransaction(finInitnNode));
+		txDetails.setDebatorAccount(buildDebatorAccount(txNode));
+		txDetails.setCreditorAccount(buildCreditorAccount(txNode));
+		txDetails.setConsumer(buildConsumer(finInitnNode));
+		txDetails.setAmounts(buildAmounts(txNode));
+		txDetails.setMerchant(buildMerchant(finInitnNode));
+		log.debug(" : buildTransDetails Method : End");
+		return txDetails;
 	}
+
+	private static Transaction buildTransaction(JsonNode finInitnNode) {
+		log.debug(" : buildTransaction Method : Start");
+		JsonNode txCntxtNode = finInitnNode.get(Contants.XML_ATTR_Cntxt).get(Contants.XML_ATTR_TxCntxt);
+		String txChanl = txCntxtNode.get(Contants.XML_ATTR_TxChanl).asText();
+		JsonNode txNode = finInitnNode.get(Contants.XML_ATTR_Tx);
+		String txType = txNode.get(Contants.XML_ATTR_TxTp).asText();
+		String trTxDtTm = txNode.get(Contants.XML_ATTR_AccptrTxDtTm).asText();
+		String accptrTxId = txNode.get(Contants.XML_ATTR_AccptrTxId).asText();
+		String txLifeCyclId = txNode.get(Contants.XML_ATTR_TxLifeCyclId).asText();
+
+		Transaction tansaction = new Transaction();
+		tansaction.setTransactionChannel(txChanl);
+		tansaction.setTransactionDateTime(trTxDtTm);
+		tansaction.setTransactionId(accptrTxId);
+		tansaction.setTransactionLifeCycleId(txLifeCyclId);
+		tansaction.setTransactionType(txType);
+
+		JsonNode SpclCondsNode = txCntxtNode.get(Contants.XML_ATTR_SpclConds);
+
+		String prmName = SpclCondsNode.get(Contants.XML_ATTR_Prgm).asText();
+		if (prmName.equals(Contants.XML_ATTR_TRCTCD)) {
+			String splCondValue = SpclCondsNode.get(Contants.XML_ATTR_Val).asText();
+			tansaction.setTransactionoriginatedcountrycode(splCondValue);
+		}
+
+		log.debug(" : buildTransaction Method : End");
+		return tansaction;
+	}
+
+	private static Consumer buildConsumer(JsonNode finInitnNode) {
+		log.debug(" : buildConsumer Method : Start");
+		Consumer consumer = new Consumer();
+		String consumerId = finInitnNode.get("Envt").get("Crdhldr").get("Id").get("CstmrNb").asText();
+		consumer.setConsumerId(consumerId);
+		log.debug(" : buildConsumer Method : End");
+		return consumer;
+	}
+
+	private static DebatorAccount buildDebatorAccount(JsonNode txNode) {
+		log.debug(" : buildDebatorAccount Method : Start");
+		DebatorAccount debatorAccount = new DebatorAccount();
+		JsonNode acctFrNode = txNode.get(Contants.XML_ATTR_TxDtls).get(Contants.XML_ATTR_AcctFr);
+		String accType = acctFrNode.get(Contants.XML_ATTR_SelctdAcctTp).asText();
+		String accNo = acctFrNode.get(Contants.XML_ATTR_AcctIdr).get(Contants.XML_ATTR_Othr).asText();
+		debatorAccount.setAccountNumber(accNo);
+		debatorAccount.setAccountType(accType);
+		log.debug(" : buildDebatorAccount Method : Start");
+		return debatorAccount;
+	}
+
+	private static CreditorAccount buildCreditorAccount(JsonNode txNode) {
+		log.debug(" : buildCreditorAccount Method : Start");
+		CreditorAccount creditorAccount = new CreditorAccount();
+		JsonNode acctToNode = txNode.get(Contants.XML_ATTR_TxDtls).get("AcctTo");
+		String accNo = acctToNode.get(Contants.XML_ATTR_AcctIdr).get(Contants.XML_ATTR_Othr).asText();
+		creditorAccount.setAccountNumber(accNo);
+		creditorAccount.setAccountType("Othr");
+		log.debug(" : buildCreditorAccount Method : Start");
+		return creditorAccount;
+	}
+
+	private static Address buildAddress(JsonNode txNode) {
+		log.debug(" : buildAddress Method : Start");
+		Address address = new Address();
+		log.debug(" : buildAddress Method : End");
+		return address;
+	}
+
+	private static Amounts buildAmounts(JsonNode txNode) {
+		log.debug(" : buildAmounts Method : Start");
+		JsonNode txAmtsNode = txNode.get(Contants.XML_ATTR_TxDtls).get(Contants.XML_ATTR_TxAmts);
+		Amounts amounts = new Amounts();
+
+		TransactionAmount transactionAmount = new TransactionAmount();
+		JsonNode ttlAmtNode = txAmtsNode.get(Contants.XML_ATTR_TtlAmt);
+		transactionAmount.setValue(ttlAmtNode.get("").asText());
+		transactionAmount.setCcy(ttlAmtNode.get(Contants.XML_ATTR_Ccy).asText());
+
+		JsonNode crdhldrBllgTxAmtNode = txAmtsNode.get(Contants.XML_ATTR_CrdhldrBllgTxAmt);
+		BillingAmount billingAmount = new BillingAmount();
+		billingAmount.setValue(crdhldrBllgTxAmtNode.get(Contants.XML_ATTR_Amt).asText());
+		billingAmount.setExchangerate(crdhldrBllgTxAmtNode.get(Contants.XML_ATTR_XchgRate).asText());
+		billingAmount.setDate(crdhldrBllgTxAmtNode.get(Contants.XML_ATTR_QtnDt).asText());
+		billingAmount.setCcy(crdhldrBllgTxAmtNode.get(Contants.XML_ATTR_Labl).asText());
+
+		JsonNode rcncltnTxAmtNode = txAmtsNode.get(Contants.XML_ATTR_RcncltnTxAmt);
+		AdditionalAmount additionalAmount = new AdditionalAmount();
+		additionalAmount.setValue(rcncltnTxAmtNode.get(Contants.XML_ATTR_Amt).asText());
+		additionalAmount.setCcy(rcncltnTxAmtNode.get(Contants.XML_ATTR_Labl).asText());
+		additionalAmount.setType(Contants.XML_ATTR_PRE_CONVERSION);
+
+		amounts.setAdditionalAmount(additionalAmount);
+		amounts.setBillingAmount(billingAmount);
+		amounts.setTransactionAmount(transactionAmount);
+
+		log.debug(" : buildAmounts Method : End");
+		return amounts;
+	}
+
+	private static Merchant buildMerchant(JsonNode finInitnNode) {
+		log.debug(" : buildMerchant Method : Start");
+		Merchant merchant = new Merchant();
+
+		JsonNode txNode = finInitnNode.get(Contants.XML_ATTR_Tx);
+		JsonNode accptrNode = finInitnNode.get(Contants.XML_ATTR_Envt).get(Contants.XML_ATTR_Accptr);
+		String comnNm = accptrNode.get(Contants.XML_ATTR_CmonNm).asText();
+		String merchantId = accptrNode.get(Contants.XML_ATTR_Id).get(Contants.XML_ATTR_Id).asText();
+		String merchantcategoryCode = txNode.get(Contants.XML_ATTR_MrchntCtgyCd).asText();
+		merchant.setMerchantcategoryCode(merchantcategoryCode);
+		merchant.setMerchantName(comnNm);
+		merchant.setMerchantId(merchantId);
+
+		log.debug(" : buildMerchant Method : End");
+		return merchant;
+	}
+
 }
