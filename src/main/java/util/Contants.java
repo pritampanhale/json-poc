@@ -39,6 +39,5 @@ public class Contants {
 	public static final String XML_ATTR_Labl = "Labl";
 	public static final String XML_ATTR_RcncltnTxAmt = "RcncltnTxAmt";
 	public static final String XML_ATTR_PRE_CONVERSION = "PRE-CONVERSION";
-	
 
 }

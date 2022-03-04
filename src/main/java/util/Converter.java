@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import lombok.extern.slf4j.Slf4j;
+
 import model.AdditionalAmount;
 import model.Address;
 import model.Amounts;
@@ -17,6 +18,7 @@ import model.DebatorAccount;
 import model.Merchant;
 import model.Transaction;
 import model.TransactionAmount;
+
 import model.TransactionDetails;
 
 @Slf4j
